@@ -10,9 +10,10 @@ import SwiftUI
 struct OnBoardingView: View {
     var body: some View {
         ZStack {
-            VStack {
-                Image("onBoardImage")
-            }
+            Image("onBoardImage")
+                .resizable()
+                .ignoresSafeArea()
+                .scaledToFill()
         }
     }
 }
