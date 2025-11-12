@@ -6,39 +6,23 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct HomeScrollRectangleView: View {
-    let header : String
+    let imageURL: String
     var body: some View {
         ZStack {
-            ScrollView(.vertical,showsIndicators: false){
-                VStack(alignment: .leading,spacing: 25){
-                    
-                    ForEach(0..<6){ v in 
-                        VStack (alignment: .leading,spacing: 20) {
-                            Text(header)
-                                .font(.subheadline)
-                                .bold()
-                                .padding(.leading)
-                            ScrollView(.horizontal,showsIndicators: false){
-                                HStack {
-                                    ForEach(0..<6) { ima in
-                                        Image("Rectangle14")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fill)
-                                            .frame(width: 120,height: 120)
-                                    }
-                                }
-                                .padding(.leading)
-                            }
-                        }
-                    }
-                }
-            }
+            WebImage(
+                url: URL(string: AppConfig.imageBaseURL + imageURL)
+            )
+            .resizable()
+            .indicator(.activity)
+            .aspectRatio(contentMode: .fill)
+            .frame(width: 120,height: 120)
         }
     }
 }
 
 #Preview {
-    HomeScrollRectangleView(header: "")
+    HomeScrollRectangleView(imageURL: "")
 }

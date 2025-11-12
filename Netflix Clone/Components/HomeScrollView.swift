@@ -13,7 +13,6 @@ struct HomeScrollView: View {
     
     var body: some View {
         ZStack {
-            VStack(alignment: .leading, spacing: 10) {
                     
                 WebImage(url: URL(string: AppConfig.imageBaseURL + imageURL))
                     .resizable()
@@ -23,10 +22,7 @@ struct HomeScrollView: View {
                     .clipShape(Circle())
                         
             }
-            .padding(.top)
-        }
         
-
     }
     
 }

@@ -11,6 +11,7 @@ import Combine
 
 class HomeViewModel: ObservableObject {
     @Published var popularMovies: [PopularMovie] = []
+    @Published var topRatedMovies: [TopRatedMovie] = []
     
     func fetchPopularMovie() async {
         guard let url = URL(string: "\(AppConfig.baseURL)\(EndPoints.popularMovie)\(AppConfig.MiddleWare)\(AppConfig.apiKey)") else { return }
@@ -19,10 +20,26 @@ class HomeViewModel: ObservableObject {
             let decode = try JSONDecoder().decode(PopularMoviesResponse.self, from: data) // get data change to the model for showing data
             await MainActor.run {
                 self.popularMovies = decode.results // here we pass the data to the UI
-                debugPrint("✅ Data fetched sucessfully \(decode.results)")
+                debugPrint("✅ Data fetched sucessfully")
             }
         } catch {
            debugPrint("❌ Fail to get the popular movie \(error)")
+        }
+    }
+    
+    func fetchTopRatedMovie() async {
+        guard let url = URL(string: "\(AppConfig.baseURL)\(EndPoints.topRatedMovie)\(AppConfig.MiddleWare)\(AppConfig.apiKey)") else { return }
+        
+        do {
+            let (data,_) = try await URLSession.shared.data(from: url)
+            let decode = try JSONDecoder().decode(TopRatedMoviesResponse.self, from: data)
+            await MainActor.run {
+                self.topRatedMovies = decode.results
+                debugPrint("✅TopRatedMovie Sucess")
+            }
+
+        } catch {
+            debugPrint("❌Fail to get the toprated movies")
         }
     }
 }

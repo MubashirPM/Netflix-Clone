@@ -50,7 +50,20 @@ struct HomeView: View {
                             .bold()
                             .font(.title)
                             .padding(.leading,16)
-                        HomeScrollRectangleView(header:"Popular on Netflix")
+                        
+                        ScrollView(.horizontal,showsIndicators: false){
+                            HStack(spacing: 12) {
+                                
+                                ForEach(
+                                    0..<viewModel.topRatedMovies.count,
+                                    id: \.self
+                                ){ topratedMoviess in
+                                    HomeScrollRectangleView(imageURL: viewModel.topRatedMovies[topratedMoviess].backdropPath)
+                                        
+                                }
+                            }
+                        }
+                        .padding(.leading,16)
                     }
                 }
                 .ignoresSafeArea(edges: .top)
@@ -73,7 +86,9 @@ struct HomeView: View {
         .background(Color.black)
         .task {
             await viewModel.fetchPopularMovie()
+            await viewModel.fetchTopRatedMovie()
         }
+        
     }
 }
 
