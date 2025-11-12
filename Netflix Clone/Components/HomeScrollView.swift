@@ -13,9 +13,11 @@ struct HomeScrollView: View {
         ZStack {
             VStack(alignment: .leading, spacing: 10) {
                 Text(header)
-                    .foregroundColor(.black)
-                    .font(.headline)
+                    .foregroundColor(.white)
+                    .bold()
+                    .font(.title)
                     .padding(.leading)
+                    
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 15) {
@@ -32,6 +34,7 @@ struct HomeScrollView: View {
             }
             .padding(.top)
         }
+        
 
     }
     

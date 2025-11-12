@@ -12,23 +12,24 @@ struct TabBarView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("Home", systemImage: "list.dash")
+                    Label("Home", systemImage: "house.fill")
                 }
 
             SearchView(query: "")
                 .tabItem {
-                    Label("Search", systemImage: "square.and.pencil")
+                    Label("Search", systemImage: "magnifyingglass")
                 }
             TrendingListView()
                 .tabItem {
-                    Label("Trending", systemImage: "list.dash")
+                    Label("Trending", systemImage: "checkmark.circle.fill")
                 }
             ProfileView()
                 .tabItem {
-                    Label("Profile", systemImage: "list.dash")
+                    Label("Profile", systemImage: "person.crop.circle.fill")
                 }
             
         }
+        .tint(.red)
     }
 }
 
