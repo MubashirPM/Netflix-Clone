@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DB01DBC12EC51E7100AB44A9 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = DB01DBC02EC51E7100AB44A9 /* SDWebImage */; };
+		DB01DBC32EC51E7100AB44A9 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = DB01DBC22EC51E7100AB44A9 /* SDWebImageMapKit */; };
+		DB01DBC62EC5220000AB44A9 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = DB01DBC52EC5220000AB44A9 /* SDWebImageSwiftUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		DB2B69F22EBF3B4900BB9AAA /* Netflix Clone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Netflix Clone.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +29,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DB01DBC62EC5220000AB44A9 /* SDWebImageSwiftUI in Frameworks */,
+				DB01DBC32EC51E7100AB44A9 /* SDWebImageMapKit in Frameworks */,
+				DB01DBC12EC51E7100AB44A9 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +74,9 @@
 			);
 			name = "Netflix Clone";
 			packageProductDependencies = (
+				DB01DBC02EC51E7100AB44A9 /* SDWebImage */,
+				DB01DBC22EC51E7100AB44A9 /* SDWebImageMapKit */,
+				DB01DBC52EC5220000AB44A9 /* SDWebImageSwiftUI */,
 			);
 			productName = "Netflix Clone";
 			productReference = DB2B69F22EBF3B4900BB9AAA /* Netflix Clone.app */;
@@ -94,6 +106,10 @@
 			);
 			mainGroup = DB2B69E92EBF3B4900BB9AAA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				DB01DBBF2EC51E7100AB44A9 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+				DB01DBC42EC5220000AB44A9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DB2B69F32EBF3B4900BB9AAA /* Products */;
 			projectDirPath = "";
@@ -253,6 +269,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Netflix-Clone-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -284,6 +301,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Netflix-Clone-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -328,6 +346,43 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		DB01DBBF2EC51E7100AB44A9 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.21.3;
+			};
+		};
+		DB01DBC42EC5220000AB44A9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		DB01DBC02EC51E7100AB44A9 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB01DBBF2EC51E7100AB44A9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+		DB01DBC22EC51E7100AB44A9 /* SDWebImageMapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB01DBBF2EC51E7100AB44A9 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImageMapKit;
+		};
+		DB01DBC52EC5220000AB44A9 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = DB01DBC42EC5220000AB44A9 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DB2B69EA2EBF3B4900BB9AAA /* Project object */;
 }

@@ -1,0 +1,11 @@
+//
+//  Config.xcconfig
+//  Netflix Clone
+//
+//  Created by MUNAVAR PM on 12/11/25.
+//
+
+// API key
+API_KEY = e6048af58380b54b9a2c852d213becd3
+BASE_URL = https://api.themoviedb.org/3
+

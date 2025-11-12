@@ -6,31 +6,22 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct HomeScrollView: View {
-    let header : String
+    let imageURL: String
+    
     var body: some View {
         ZStack {
             VStack(alignment: .leading, spacing: 10) {
-                Text(header)
-                    .foregroundColor(.white)
-                    .bold()
-                    .font(.title)
-                    .padding(.leading)
                     
-                
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 15) {
-                        ForEach(0..<6) { _ in
-                            Image("ListImage")
-                                .resizable()
-                                .aspectRatio(contentMode:.fill)
-                                .frame(width: 120, height: 120)
-                                .clipShape(Circle())
-                        }
-                    }
-                    .padding(.horizontal)
-                }
+                WebImage(url: URL(string: AppConfig.imageBaseURL + imageURL))
+                    .resizable()
+                    .indicator(.activity)
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 120, height: 120)
+                    .clipShape(Circle())
+                        
             }
             .padding(.top)
         }
@@ -40,5 +31,5 @@ struct HomeScrollView: View {
     
 }
 #Preview {
-    HomeScrollView(header: "")
+    HomeScrollView(imageURL: "")
 }
