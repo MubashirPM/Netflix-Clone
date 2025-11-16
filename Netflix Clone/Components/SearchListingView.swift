@@ -6,19 +6,25 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct SearchListingView: View {
     
+    let text : String
+    let imageURL : String
     var body: some View {
             ZStack {
                 VStack(alignment: .leading){
                         HStack {
-                            Image("ListImage1")
-                                .resizable()
+                            WebImage(
+                                url: URL(string: AppConfig.imageBaseURL + imageURL)
+                            )
+                            .resizable()
+                            .indicator(.activity)
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: 146,height: 76)
                                 Spacer()
-                            Text("Breaking Bad")
+                            Text(text)
                                 .font(.headline)
                             
                             Spacer()
@@ -36,6 +42,3 @@ struct SearchListingView: View {
     }
 }
 
-#Preview {
-    SearchListingView()
-}

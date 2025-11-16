@@ -9,13 +9,11 @@ import SwiftUI
 
 struct TabBarView: View {
     var body: some View {
-        
         TabView {
             HomeView()
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
-
             SearchView(query: "")
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
@@ -28,7 +26,6 @@ struct TabBarView: View {
                 .tabItem {
                     Label("Profile", systemImage: "person.crop.circle.fill")
                 }
-            
         }
         .tint(.red)
     }

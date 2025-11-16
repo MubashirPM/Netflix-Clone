@@ -6,33 +6,55 @@
 //
 
 import SwiftUI
-import SwiftUI
 
 struct SearchView: View {
+    @StateObject var viewModel = SearchViewModel()
+    
     @State var query: String = ""
     
     var body: some View {
-//        NavigationStack {
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack {
-                    Text("Top Search")
-                        .font(.title2)
-                        .bold()
-                        .foregroundStyle(.white)
-                        .padding(.horizontal)
+        VStack(alignment: .leading) {
+            TextField("Search movies…", text: $query)
+                .onSubmit { print("submitted:", query) }
+                .textFieldStyle(.roundedBorder)
                     
-                    ForEach(0..<7) { _ in
-                        SearchListingView()
+            Text("Top Search")
+                .font(.title2)
+                .bold()
+                .foregroundStyle(.white)
+                .padding(.horizontal)
+            ScrollView {
+                    
+                LazyVStack {
+                    ForEach(viewModel.searchData,id:\.id) { movie in
+                        NavigationLink(
+                            destination: MovieDetailView(movieId: movie.id)
+                        ){
+                            SearchListingView(
+                                text: movie.title,
+                                imageURL: movie.backdropPath ?? ""
+                            )
+                        }
                     }
                 }
-                .padding(.top)
             }
-            .navigationBarHidden(false)
-            .background(Color.black.ignoresSafeArea())
-            .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
-//        }
-        
+        }
+        .padding(.top,28)
+        .navigationBarHidden(false)
+        .background(Color.black)
+        .onChange(of: query) { oldValue, newValue in
+            print("🟡 onChange triggered:", newValue)
 
+            Task {
+                print("🟢 calling API…")
+                await viewModel.searchMovie(query: newValue)
+            }
+        }
+        .onAppear {
+            debugPrint("SearchViewoooooo....")
+        }
+        
+        
     }
 }
 #Preview {
