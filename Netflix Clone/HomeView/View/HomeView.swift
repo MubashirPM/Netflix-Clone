@@ -15,12 +15,9 @@ struct HomeView: View {
             VStack(alignment: .leading) {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading){
-                        Image("HomePageIm")
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: 424, height: 415)
-                            .clipped()
+                        AutoScrollImageView(images: ["HomePageIm","HomePageIm","HomePageIm"])
                             .edgesIgnoringSafeArea(.top)
+
                         
                         HomeActionButtons()
                             .padding(.horizontal,40)
