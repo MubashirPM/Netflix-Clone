@@ -13,33 +13,28 @@ struct SearchView: View {
     @State var query: String = ""
     
     var body: some View {
-        VStack(alignment: .leading) {
-            TextField("Search movies…", text: $query)
-                .onSubmit { print("submitted:", query) }
-                .textFieldStyle(.roundedBorder)
+            VStack(alignment: .leading) {
+                TextField("Search movies…", text: $query)
+                    .onSubmit { print("submitted:", query) }
+                    .textFieldStyle(.roundedBorder)
                     
-            Text("Top Search")
-                .font(.title2)
-                .bold()
-                .foregroundStyle(.white)
-                .padding(.horizontal)
-            ScrollView {
+                Text("Top Search")
+                    .font(.title2)
+                    .bold()
+                    .foregroundStyle(.white)
+                    .padding(.horizontal)
+                ScrollView {
                     
-                LazyVStack {
-                    ForEach(viewModel.searchData,id:\.id) { movie in
-                        NavigationLink(
-                            destination: MovieDetailView(movieId: movie.id)
-                        ){
-                            SearchListingView(
-                                text: movie.title,
-                                imageURL: movie.backdropPath ?? ""
-                            )
+                    LazyVStack {
+                        ForEach(viewModel.searchData,id:\.id) { movie in
+                            NavigationLink(destination: MovieDetailView(movieId: movie.id)){
+                                SearchListingView(text: movie.title, imageURL: movie.backdropPath ?? "")
+                            }
                         }
                     }
                 }
             }
-        }
-        .padding(.top,28)
+            .padding(.top,28)
         .navigationBarHidden(false)
         .background(Color.black)
         .onChange(of: query) { oldValue, newValue in

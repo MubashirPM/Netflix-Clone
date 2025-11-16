@@ -32,7 +32,6 @@ enum EndPoints {
     static let topRatedMovie      = "/movie/top_rated"      // GET top rated movies :contentReference[oaicite:3]{index=3}
     static let upcomingMovie      = "/movie/upcoming"       // GET upcoming movies :contentReference[oaicite:4]{index=4}
     static let movieDetails       = "/movie/{movie_id}"     // GET details of a movie :contentReference[oaicite:5]{index=5}
-    static let movieCredits       = "/movie/{movie_id}/credits" // GET cast/crew of a movie :contentReference[oaicite:6]{index=6}
     static let movieImages        = "/movie/{movie_id}/images"  // GET images for a movie :contentReference[oaicite:7]{index=7}
 
     // Search
@@ -42,6 +41,7 @@ enum EndPoints {
     static let movieGenreList     = "/genre/movie/list"    // Get list of genres for movies :contentReference[oaicite:9]{index=9}
 
     // More endpoints exist (TV shows, people, collections, etc.)
+    static let TrendingNow = "/trending/all/day"
 }
 
 

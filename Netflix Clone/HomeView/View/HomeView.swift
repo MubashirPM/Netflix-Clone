@@ -15,9 +15,17 @@ struct HomeView: View {
             VStack(alignment: .leading) {
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading){
-                        AutoScrollImageView(images: ["HomePageIm","HomePageIm","HomePageIm"])
+                        let trendingMovie: [AutoScrollMovie] = viewModel.TrendingNow
+                            .prefix(3)
+                            .map { movie in
+                                AutoScrollMovie(
+                                    id: movie.id, image: movie.backdropPath,
+                                    title: movie.title ?? "Untitled"
+                                )
+                            }
+                        AutoScrollImageView(movies: trendingMovie)
                             .edgesIgnoringSafeArea(.top)
-
+                           
                         
                         HomeActionButtons()
                             .padding(.horizontal,40)
@@ -53,15 +61,17 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal,showsIndicators: false){
                             HStack(spacing: 12) {
-                                ForEach(
-                                    0..<viewModel.topRatedMovies.count,
-                                    id: \.self
-                                ){ topratedMoviess in
-                                    HomeScrollRectangleView(
-                                        imageURL: viewModel
-                                            .topRatedMovies[topratedMoviess].backdropPath
-                                    )                                }
+                                ForEach(viewModel.topRatedMovies.indices, id: \.self) { index in
+                                    NavigationLink(
+                                        destination: MovieDetailView(movieId: viewModel.topRatedMovies[index].id)
+                                    ) {
+                                        HomeScrollRectangleView(
+                                            imageURL: viewModel.topRatedMovies[index].backdropPath
+                                        )
+                                    }
+                                }
                             }
+
                         }
                         .padding(.leading,16)
                         
@@ -73,15 +83,17 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal,showsIndicators: false){
                             HStack(spacing: 12) {
-                                ForEach(
-                                    0..<viewModel.nowPlayingMovies.count,
-                                    id: \.self
-                                ){ nowPlaying in
-                                    HomeScrollRectangleView(
-                                        imageURL: viewModel
-                                            .nowPlayingMovies[nowPlaying].backdropPath
-                                    )                                }
+                                ForEach(viewModel.nowPlayingMovies.indices, id: \.self) { index in
+                                    NavigationLink(
+                                        destination: MovieDetailView(movieId: viewModel.nowPlayingMovies[index].id)
+                                    ) {
+                                        HomeScrollRectangleView(
+                                            imageURL: viewModel.nowPlayingMovies[index].backdropPath
+                                        )
+                                    }
+                                }
                             }
+
                         }
                         .padding(.leading,16)
                     }
@@ -108,6 +120,7 @@ struct HomeView: View {
             await viewModel.fetchPopularMovie()
             await viewModel.fetchTopRatedMovie()
             await viewModel.fetchNowPlayingMovie()
+            await viewModel.fetchtrendIngNow()
         }
         
     }

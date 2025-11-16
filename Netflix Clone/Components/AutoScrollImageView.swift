@@ -1,35 +1,47 @@
-//
-//  AutoScrollImageView.swift
-//  Netflix Clone
-//
-//  Created by MUNAVAR PM on 16/11/25.
-//
-
-
 import SwiftUI
 import Combine
+import SDWebImageSwiftUI
 
 struct AutoScrollImageView: View {
-    let images: [String]
+    let movies: [AutoScrollMovie]
     @State private var currentIndex = 0
     let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
 
     var body: some View {
-        TabView(selection: $currentIndex) {
-            ForEach(images.indices, id: \.self) { index in
-                Image(images[index])
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 424, height: 415)
-                    .clipped()
+        if movies.isEmpty {
+            Color.black
+                .frame(height: 430)
+        } else {
+            TabView(selection: $currentIndex) {
+                ForEach(movies.indices, id: \.self) { index in
+                    NavigationLink(destination: MovieDetailView(movieId: movies[index].id)) {
+                        ZStack(alignment: .bottomLeading) {
+
+                            WebImage(url: URL(string: AppConfig.imageBaseURL + movies[index].image))
+                                .resizable()
+                                .indicator(.activity)
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 424, height: 430)
+                                .clipped()
+
+                            Text(movies[index].title)
+                                .foregroundColor(.white)
+                                .font(.title2)
+                                .bold()
+                                .padding(.bottom, 12)
+                                .padding(.leading, 20)
+                                .shadow(radius: 10)
+                        }
+                    }
                     .tag(index)
+                }
             }
-        }
-        .tabViewStyle(.page)
-        .frame(width: 424, height: 415)  // exact size you wanted
-        .onReceive(timer) { _ in
-            withAnimation {
-                currentIndex = (currentIndex + 1) % images.count
+            .tabViewStyle(.page)
+            .frame(width: 424, height: 430)
+            .onReceive(timer) { _ in
+                withAnimation {
+                    currentIndex = (currentIndex + 1) % movies.count   
+                }
             }
         }
     }

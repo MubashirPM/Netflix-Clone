@@ -14,6 +14,7 @@ class HomeViewModel: ObservableObject {
     @Published var topRatedMovies: [TopRatedMovie] = []
     @Published var nowPlayingMovies: [Result] = []
     @Published var movieDetails : MovieDetailResponse?
+    @Published var TrendingNow : [Trending] = []
    
     
     func fetchPopularMovie() async {
@@ -74,6 +75,19 @@ class HomeViewModel: ObservableObject {
             
         } catch {
             debugPrint("❌Fail to get the Details movies")
+        }
+    }
+    
+    func fetchtrendIngNow() async {
+        guard let url = URL(string: "\(AppConfig.baseURL)\(EndPoints.TrendingNow)\(AppConfig.MiddleWare)\(AppConfig.apiKey)") else {return}
+        do {
+            let (data,_ ) = try await URLSession.shared.data(from: url)
+            let decode = try JSONDecoder().decode(TrendingAllDay.self, from: data)
+            await MainActor.run {
+                self.TrendingNow = decode.results
+            }
+        } catch {
+            debugPrint(error)
         }
     }
     
