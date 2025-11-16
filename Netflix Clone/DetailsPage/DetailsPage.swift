@@ -5,35 +5,54 @@
 //  Created by MUNAVAR PM on 12/11/25.
 //
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct MovieDetailView: View {
+    @StateObject var viewModel = HomeViewModel()
+    let movieId : Int
     var body: some View {
         ScrollView(showsIndicators: false) {
             VStack(alignment: .leading, spacing: 16) {
-                
                 ZStack(alignment: .bottomLeading) {
-                    Image("HomePageIm")
-                        .resizable()
-                        .scaledToFill()
-                        .frame(height: 300)
-                        .clipped()
-                       
-                
+                    WebImage(
+                        url: URL(
+                            string: AppConfig
+                                .imageBaseURL + (
+                                    viewModel.movieDetails?.backdropPath ?? ""
+                                )
+                        )
+                    )
+                    .resizable()
+                    .indicator(.activity)
+                    .scaledToFill()
+                    .frame(height: 300)
+                    .clipped()
                     
-                    Text("Extraction 2")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.white)
-                        .padding(.horizontal)
-                        .padding(.bottom, 20)
+                    HStack {
+                        Text(viewModel.movieDetails?.title ?? "")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+
+                            .padding(.bottom, 20)
+                        if viewModel.movieDetails?.adult ?? false {
+                            Text("🔞")
+                                .font(.largeTitle)
+                                .padding(.bottom, 20)
+                        }
+                        
+                    }
                 }
                 
                 VStack(alignment: .leading, spacing: 6) {
-                    Text("Action • Thriller • 2023")
-                        .foregroundColor(.gray)
-                        .font(.subheadline)
+                    if let genres = viewModel.movieDetails?.genres {
+                        Text(genres.map { $0.name }.joined(separator: " • "))
+                            .foregroundColor(.gray)
+                            .font(.subheadline)
+                    }
                     
-                    Text("Tyler Rake returns for another dangerous mission. Full of high-octane action and stunning visuals.")
+                    
+                    Text(viewModel.movieDetails?.overview ?? "")
                         .foregroundColor(.white)
                         .font(.body)
                         .lineLimit(nil)
@@ -52,40 +71,45 @@ struct MovieDetailView: View {
                         .background(Color.red)
                         .foregroundColor(.white)
                         .cornerRadius(10)
+                        
                     }
                 }
                 .padding(.horizontal)
                 .padding(.top, 10)
                 
                 
-                Text("More Like This")
+                Text("Production Company")
                     .font(.headline)
                     .foregroundColor(.white)
                     .padding(.horizontal)
                     .padding(.top, 20)
                 
-                ScrollView(.horizontal, showsIndicators: false) {
-                    HStack(spacing: 10) {
-                        ForEach(1..<6) { index in
-                            Image("TrendingIM")
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 120, height: 180)
-                                .cornerRadius(10)
-                        }
-                    }
+                if let logoPath = viewModel.movieDetails?.productionCompanies.first?.logoPath
+                {   
+                    WebImage(
+                        url: URL(string: AppConfig.imageBaseURL + logoPath)
+                    )
+                    .resizable()
+                    .indicator(.activity)
+                    .scaledToFill()
+                    .frame(width: 120, height: 180)
+                    .cornerRadius(10)
+                               
+                           
                     .padding(.horizontal)
                 }
+                    
             }
         }
+        .background(Color.black)
+        .ignoresSafeArea(edges: .top)
         
-        .background(Color.black.ignoresSafeArea())
-        .navigationTitle("Details Page")
-        .navigationBarTitleDisplayMode(.inline)
-        .edgesIgnoringSafeArea(.top)
+        .task {
+            await viewModel.fetchDetailPage(id: movieId)
+        }
     }
 }
 
 #Preview {
-    MovieDetailView()
+    MovieDetailView( movieId: 0)
 }

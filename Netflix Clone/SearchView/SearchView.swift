@@ -6,22 +6,37 @@
 //
 
 import SwiftUI
+import SwiftUI
 
 struct SearchView: View {
-    @State var query : String
+    @State var query: String = ""
+    
     var body: some View {
-        ZStack {
-            ScrollView(.vertical,showsIndicators: false){
+//        NavigationStack {
+            ScrollView(.vertical, showsIndicators: false) {
                 VStack {
                     Text("Top Search")
+                        .font(.title2)
                         .bold()
-                    ForEach(0..<4){ _ in
+                        .foregroundStyle(.white)
+                        .padding(.horizontal)
+                    
+                    ForEach(0..<7) { _ in
                         SearchListingView()
                     }
                 }
+                .padding(.top)
             }
-            .searchable(text: $query,prompt: "Search Movie...")
-        }
+            .navigationBarHidden(false)
+            .background(Color.black.ignoresSafeArea())
+            .searchable(text: $query, placement: .navigationBarDrawer(displayMode: .always))
+//        }
+        
+
     }
 }
-
+#Preview {
+    NavigationStack {
+        SearchView(query: "")
+    }
+}

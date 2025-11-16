@@ -12,6 +12,9 @@ import Combine
 class HomeViewModel: ObservableObject {
     @Published var popularMovies: [PopularMovie] = []
     @Published var topRatedMovies: [TopRatedMovie] = []
+    @Published var nowPlayingMovies: [Result] = []
+    @Published var movieDetails : MovieDetailResponse?
+   
     
     func fetchPopularMovie() async {
         guard let url = URL(string: "\(AppConfig.baseURL)\(EndPoints.popularMovie)\(AppConfig.MiddleWare)\(AppConfig.apiKey)") else { return }
@@ -42,5 +45,37 @@ class HomeViewModel: ObservableObject {
             debugPrint("❌Fail to get the toprated movies")
         }
     }
+    
+    func fetchNowPlayingMovie() async {
+        guard let url = URL(string: "\(AppConfig.baseURL)\(EndPoints.nowPlayingMovie)\(AppConfig.MiddleWare)\(AppConfig.apiKey)") else {return}
+        
+        do {
+            let (data,_) = try await URLSession.shared.data(from: url)
+            let decode = try JSONDecoder().decode(Welcome.self, from: data)
+            await MainActor.run {
+                self.nowPlayingMovies = decode.results
+                debugPrint("✅NowPlayingMovie Sucess")
+            }
+        } catch {
+            debugPrint("❌Fail to get the NowPlaying movies")
+        }
+    }
+    
+    func fetchDetailPage(id : Int) async {
+        guard let url = URL(string: "\(AppConfig.baseURL)\("/movie/")\(id)\(AppConfig.MiddleWare)\(AppConfig.apiKey)") else {return}
+        
+        
+        do {
+            let (data,_) = try await URLSession.shared.data(from: url)
+            let decode = try JSONDecoder().decode(MovieDetailResponse.self, from: data)
+            debugPrint(decode)
+                self.movieDetails = decode
+                debugPrint("✅Details Sucess")
+            
+        } catch {
+            debugPrint("❌Fail to get the Details movies")
+        }
+    }
+    
 }
 

@@ -35,10 +35,13 @@ struct HomeView: View {
                                     0..<viewModel.popularMovies.count,
                                     id: \.self
                                 ) { popularmovies in
-                                    HomeScrollView(
-                                        imageURL: viewModel
-                                            .popularMovies[popularmovies].backdropPath
-                                    )
+                                    NavigationLink(destination: MovieDetailView(movieId: viewModel
+                                        .popularMovies[popularmovies].id)){
+                                            HomeScrollView(
+                                                imageURL: viewModel
+                                                    .popularMovies[popularmovies].backdropPath
+                                            )
+                                        }
                                 }
                             }
                             
@@ -53,14 +56,34 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal,showsIndicators: false){
                             HStack(spacing: 12) {
-                                
                                 ForEach(
                                     0..<viewModel.topRatedMovies.count,
                                     id: \.self
                                 ){ topratedMoviess in
-                                    HomeScrollRectangleView(imageURL: viewModel.topRatedMovies[topratedMoviess].backdropPath)
-                                        
-                                }
+                                    HomeScrollRectangleView(
+                                        imageURL: viewModel
+                                            .topRatedMovies[topratedMoviess].backdropPath
+                                    )                                }
+                            }
+                        }
+                        .padding(.leading,16)
+                        
+                        Text("NowPlaying Movies")
+                            .foregroundColor(.white)
+                            .bold()
+                            .font(.title)
+                            .padding(.leading,16)
+                        
+                        ScrollView(.horizontal,showsIndicators: false){
+                            HStack(spacing: 12) {
+                                ForEach(
+                                    0..<viewModel.nowPlayingMovies.count,
+                                    id: \.self
+                                ){ nowPlaying in
+                                    HomeScrollRectangleView(
+                                        imageURL: viewModel
+                                            .nowPlayingMovies[nowPlaying].backdropPath
+                                    )                                }
                             }
                         }
                         .padding(.leading,16)
@@ -87,6 +110,7 @@ struct HomeView: View {
         .task {
             await viewModel.fetchPopularMovie()
             await viewModel.fetchTopRatedMovie()
+            await viewModel.fetchNowPlayingMovie()
         }
         
     }

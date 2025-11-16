@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct SearchListingView: View {
+    
     var body: some View {
             ZStack {
                 VStack(alignment: .leading){

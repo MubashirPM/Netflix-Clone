@@ -9,6 +9,7 @@ import SwiftUI
 
 struct TabBarView: View {
     var body: some View {
+        
         TabView {
             HomeView()
                 .tabItem {
@@ -19,9 +20,9 @@ struct TabBarView: View {
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
-            TrendingListView()
+            UpcomingView()
                 .tabItem {
-                    Label("Trending", systemImage: "checkmark.circle.fill")
+                    Label("Upcoming", systemImage: "clock")
                 }
             ProfileView()
                 .tabItem {
