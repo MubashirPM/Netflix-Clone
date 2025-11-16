@@ -25,7 +25,7 @@ struct MovieDetailView: View {
                     .resizable()
                     .indicator(.activity)
                     .scaledToFill()
-                    .frame(height: 300)
+                    .frame(width: UIScreen.main.bounds.width,height: 300)
                     .clipped()
                     
                     HStack {
@@ -33,7 +33,6 @@ struct MovieDetailView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(.white)
-
                             .padding(.bottom, 20)
                         if viewModel.movieDetails?.adult ?? false {
                             Text("🔞")
@@ -42,6 +41,7 @@ struct MovieDetailView: View {
                         }
                         
                     }
+                    .padding(.leading,16)
                 }
                 
                 VStack(alignment: .leading, spacing: 6) {
@@ -62,11 +62,12 @@ struct MovieDetailView: View {
                 HStack(spacing: 15) {
                     Button(action: {}) {
                         HStack {
+                            Spacer()
                             Image(systemName: "play.fill")
                             Text("Play")
                                 .fontWeight(.bold)
+                            Spacer()
                         }
-                        .frame(maxWidth: .infinity)
                         .padding()
                         .background(Color.red)
                         .foregroundColor(.white)
