@@ -21,7 +21,6 @@ struct SearchResultModel: Codable {
     }
 }
 
-// MARK: - Result
 struct SearchResult: Codable {
     let adult: Bool
     let backdropPath: String?

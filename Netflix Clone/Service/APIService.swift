@@ -42,6 +42,9 @@ enum EndPoints {
 
     // More endpoints exist (TV shows, people, collections, etc.)
     static let TrendingNow = "/trending/all/day"
+    
+    static let rateMovie = "/movie/"
+
 }
 
 

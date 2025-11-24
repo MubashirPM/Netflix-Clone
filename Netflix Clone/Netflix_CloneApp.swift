@@ -9,11 +9,13 @@ import SwiftUI
 
 @main
 struct Netflix_CloneApp: App {
+   
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                TabBarView()
+                NavigationStack {
+                    TabBarView()
+                }
+                .preferredColorScheme(.dark)
             }
         }
     }
-}

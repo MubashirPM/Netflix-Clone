@@ -44,7 +44,7 @@ struct HomeView: View {
                                         .popularMovies[popularmovies].id)){
                                             HomeScrollView(
                                                 imageURL: viewModel
-                                                    .popularMovies[popularmovies].backdropPath
+                                                    .popularMovies[popularmovies].backdropPath ?? "Image Not page"
                                             )
                                         }
                                 }
@@ -61,12 +61,19 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal,showsIndicators: false){
                             HStack(spacing: 12) {
-                                ForEach(viewModel.topRatedMovies.indices, id: \.self) { index in
+                                ForEach(
+                                    viewModel.topRatedMovies.indices,
+                                    id: \.self
+                                ) { index in
                                     NavigationLink(
-                                        destination: MovieDetailView(movieId: viewModel.topRatedMovies[index].id)
+                                        destination: MovieDetailView(
+                                            movieId: viewModel
+                                                .topRatedMovies[index].id
+                                        )
                                     ) {
                                         HomeScrollRectangleView(
-                                            imageURL: viewModel.topRatedMovies[index].backdropPath
+                                            imageURL: viewModel
+                                                .topRatedMovies[index].backdropPath
                                         )
                                     }
                                 }
@@ -83,12 +90,42 @@ struct HomeView: View {
                         
                         ScrollView(.horizontal,showsIndicators: false){
                             HStack(spacing: 12) {
-                                ForEach(viewModel.nowPlayingMovies.indices, id: \.self) { index in
+                                ForEach(
+                                    viewModel.nowPlayingMovies.indices,
+                                    id: \.self
+                                ) { index in
                                     NavigationLink(
-                                        destination: MovieDetailView(movieId: viewModel.nowPlayingMovies[index].id)
+                                        destination: MovieDetailView(
+                                            movieId: viewModel
+                                                .nowPlayingMovies[index].id
+                                        )
                                     ) {
                                         HomeScrollRectangleView(
-                                            imageURL: viewModel.nowPlayingMovies[index].backdropPath
+                                            imageURL: viewModel
+                                                .nowPlayingMovies[index].backdropPath
+                                        )
+                                    }
+                                }
+                            }
+
+                        }
+                        Text("TopRated Series ")
+                            .foregroundColor(.white)
+                            .bold()
+                            .font(.title)
+                            .padding(.leading,16)
+                        
+                        ScrollView(.horizontal,showsIndicators: false){
+                            HStack(spacing: 12) {
+                                ForEach(
+                                    viewModel.tvSeries.indices,
+                                    id: \.self
+                                ) { index in
+                                    NavigationLink(destination: SeriesDetailView(seriesId: viewModel.tvSeries[index].id ?? 0)
+) {
+                                        HomeScrollRectangleView(
+                                            imageURL: viewModel
+                                                .tvSeries[index].backdrop_path ?? "Untitled"
                                         )
                                     }
                                 }
@@ -121,6 +158,9 @@ struct HomeView: View {
             await viewModel.fetchTopRatedMovie()
             await viewModel.fetchNowPlayingMovie()
             await viewModel.fetchtrendIngNow()
+            await viewModel.fetchUserRatedMovies()
+            await viewModel.fetchTvSeries()
+            
         }
         
     }

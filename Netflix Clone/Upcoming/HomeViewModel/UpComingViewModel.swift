@@ -25,4 +25,6 @@ class UpComingViewModel: ObservableObject {
             debugPrint("fail to get the UpComingMovies")
         }
     }
+    
+    
 }

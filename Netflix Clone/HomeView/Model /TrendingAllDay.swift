@@ -5,12 +5,6 @@
 //  Created by MUNAVAR PM on 16/11/25.
 //
 
-
-// This file was generated from JSON Schema using quicktype, do not modify it directly.
-// To parse the JSON, add this file to your project and do:
-//
-//   let trendingAllDay = try? JSONDecoder().decode(TrendingAllDay.self, from: jsonData)
-
 import Foundation
 
 // MARK: - TrendingAllDay
@@ -26,7 +20,6 @@ struct TrendingAllDay: Codable {
     }
 }
 
-// MARK: - Result
 struct Trending: Codable {
     let adult: Bool
     let backdropPath: String
@@ -34,7 +27,7 @@ struct Trending: Codable {
     let title, originalTitle: String?
     let overview, posterPath: String
     let mediaType: MediaType
-    let originalLanguage: OriginalLanguage
+    let originalLanguage: String
     let genreIDS: [Int]
     let popularity: Double
     let releaseDate: String?
@@ -69,11 +62,4 @@ struct Trending: Codable {
 enum MediaType: String, Codable {
     case movie = "movie"
     case tv = "tv"
-}
-
-enum OriginalLanguage: String, Codable {
-    case en = "en"
-    case es = "es"
-    case ja = "ja"
-    case zh = "zh"
 }

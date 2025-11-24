@@ -14,35 +14,6 @@ struct UpcomingView: View {
     var body: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 30) {
-                
-                //                ZStack(alignment: .bottomLeading) {
-                //                     WebImage(
-                //                        url: URL(
-                //                            string: AppConfig
-                //                                .imageBaseURL + (viewModel.UpComing.first?.backdropPath ?? "")
-                //                        )
-                //                    )
-                //
-                //                        .resizable()
-                //                        .aspectRatio(contentMode: .fill)
-                //                        .frame(height: 400)
-                //                        .clipped()
-                //
-                //
-                //                    Text("Featured")
-                //                        .font(.title)
-                //                        .bold()
-                //                        .foregroundColor(.white)
-                //                        .padding()
-                //                        .background(
-                //                            LinearGradient(
-                //                                gradient: Gradient(colors: [Color.black.opacity(0.7), .clear]),
-                //                                startPoint: .bottom,
-                //                                endPoint: .top
-                //                            )
-                //                        )
-                //                }
-                
                 Text("Upcoming Movies")
                     .font(.title2)
                     .bold()
@@ -59,7 +30,10 @@ struct UpcomingView: View {
                                         WebImage(
                                             url: URL(
                                                 string: AppConfig
-                                                    .imageBaseURL + (viewModel.UpComing[id].backdropPath)
+                                                    .imageBaseURL + (
+                                                        viewModel
+                                                            .UpComing[id].backdropPath
+                                                    )
                                             )
                                         )
                                         
@@ -74,11 +48,13 @@ struct UpcomingView: View {
                                                 .foregroundColor(.white)
                                                 .padding(.leading, 8)
                                             
-                                            Text(viewModel.UpComing[id].overview)
-                                                .font(.caption2)
-                                                .foregroundColor(.gray)
-                                                .padding(.leading, 6)
-                                                .lineLimit(5)
+                                            Text(
+                                                viewModel.UpComing[id].overview
+                                            )
+                                            .font(.caption2)
+                                            .foregroundColor(.gray)
+                                            .padding(.leading, 6)
+                                            .lineLimit(5)
                                         }
                                     }
                                     .padding(.horizontal)
