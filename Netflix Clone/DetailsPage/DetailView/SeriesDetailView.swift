@@ -59,16 +59,6 @@ struct SeriesDetailView: View {
                         .font(.body)
                         .lineLimit(nil)
                     
-                    // Rating with star and text
-//                    HStack(spacing: 4) {
-//                        Image(systemName: "star.fill")
-//                            .resizable()
-//                            .scaledToFit()
-//                            .frame(width: 16, height: 16)
-//                            .foregroundColor(.yellow)
-//                        
-//                    }
-//                    .padding(.horizontal)
                     
                     HStack(spacing: 15) {
                         Button(action: {}) {
@@ -101,3 +91,4 @@ struct SeriesDetailView: View {
         .background(Color.black) 
     }
 }
+

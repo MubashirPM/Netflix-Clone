@@ -105,6 +105,7 @@ struct MovieDetailView: View {
                                         Picker("Rating", selection: $selectedRating) {
                                             ForEach(1..<6) { num in
                                                 Text("\(num)")
+                                                    .tag(num)
                                             }
                                         }
                                         .pickerStyle(.wheel)

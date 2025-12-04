@@ -7,19 +7,17 @@
 
 import SwiftUI
 import SDWebImageSwiftUI
-
 struct HomeScrollRectangleView: View {
     let imageURL: String
+    
     var body: some View {
-        ZStack {
-            WebImage(
-                url: URL(string: AppConfig.imageBaseURL + imageURL)
-            )
+        WebImage(url: URL(string: AppConfig.imageBaseURL + imageURL))
             .resizable()
             .indicator(.activity)
-            .aspectRatio(contentMode: .fill)
-            .frame(width: 120,height: 120)
-        }
+            .scaledToFill()
+            .frame(width: 120, height: 180)   
+            .cornerRadius(10)
+            .clipped()
     }
 }
 

@@ -38,7 +38,6 @@ class DetailsViewModel : ObservableObject {
         guard let url = URL(string: "https://api.themoviedb.org/3/movie/\(id)/rating\(AppConfig.MiddleWare)\(AppConfig.apiKey)") else {
             return
         }
-        print(url)
         
         let newRating = RatingBody(value: rating)
         
@@ -53,8 +52,6 @@ class DetailsViewModel : ObservableObject {
                 "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNjA0OGFmNTgzODBiNTRiOWEyYzg1MmQyMTNiZWNkMyIsIm5iZiI6MTc2Mjg4MjM5NC44MDcwMDAyLCJzdWIiOiI2OTEzNzM1YWQwNDUwZmEzMDYzYTM4NzEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.-4rCK3TnABjGorADOsfK6R9JwpSusk_X4HR9TJEoJMw",
                 forHTTPHeaderField: "Authorization"
             )
-      
-        
         do {
             let (data,_) = try await URLSession.shared.data(
                 for: req
@@ -65,13 +62,13 @@ class DetailsViewModel : ObservableObject {
                 ResponseBody.self,
                 from: data
             ) // decoding the response
-            debugPrint(decode)
+            debugPrint("Post Success",decode)
         } catch {
-            debugPrint(error)
+            debugPrint("Fail to Post Data",error)
         }
     }
     
-    func deleteMovieRating(movieId : Int) async {
+        func deleteMovieRating(movieId : Int) async {
         guard let url = URL(string: "\(AppConfig.baseURL)/movie/\(movieId)/rating\(AppConfig.MiddleWare)\(AppConfig.apiKey)") else {
             return
         }
@@ -92,7 +89,33 @@ class DetailsViewModel : ObservableObject {
             debugPrint("Fail to Delete Data",error)
         }
     }
-
     
+    func addRating(rating : Double,id : Int) async{
+        guard let url = URL(string: "https://api.themoviedb.org/3/tv/\(id)/rating\(AppConfig.MiddleWare)\(AppConfig.apiKey)") else {
+            return
+        }
+        let newRating = RatingRequest(value: rating)
+        
+        let json = try? JSONEncoder().encode(newRating)
+        
+        var request = URLRequest(url: url)
+        request.httpBody = json
+        request.httpMethod = "POST"
+        request.timeoutInterval = 10
+        request.allHTTPHeaderFields = [
+          "accept": "application/json",
+          "Content-Type": "application/json;charset=utf-8",
+          "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNjA0OGFmNTgzODBiNTRiOWEyYzg1MmQyMTNiZWNkMyIsIm5iZiI6MTc2Mjg4MjM5NC44MDcwMDAyLCJzdWIiOiI2OTEzNzM1YWQwNDUwZmEzMDYzYTM4NzEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.-4rCK3TnABjGorADOsfK6R9JwpSusk_X4HR9TJEoJMw"
+        ]
+        
+        do {
+            let (data,_) = try await URLSession.shared.data(for: request)
+            
+            let decode = try JSONDecoder().decode(RatingRequest.self, from: data)
+            debugPrint("Sucess Series Post ")
+        } catch {
+            debugPrint("fail series post method") 
+        }
+    }
 }
 

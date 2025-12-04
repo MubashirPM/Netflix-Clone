@@ -37,6 +37,7 @@ struct Trending: Codable {
     let name, originalName, firstAirDate: String?
     let originCountry: [String]?
 
+
     enum CodingKeys: String, CodingKey {
         case adult
         case backdropPath = "backdrop_path"
@@ -56,6 +57,7 @@ struct Trending: Codable {
         case originalName = "original_name"
         case firstAirDate = "first_air_date"
         case originCountry = "origin_country"
+
     }
 }
 

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel = HomeViewModel()
-    
+
     var body: some View {
         ZStack {
             VStack(alignment: .leading) {
@@ -44,7 +44,7 @@ struct HomeView: View {
                                         .popularMovies[popularmovies].id)){
                                             HomeScrollView(
                                                 imageURL: viewModel
-                                                    .popularMovies[popularmovies].backdropPath ?? "Image Not page"
+                                                    .popularMovies[popularmovies].posterPath
                                             )
                                         }
                                 }
@@ -66,19 +66,17 @@ struct HomeView: View {
                                     id: \.self
                                 ) { index in
                                     NavigationLink(
-                                        destination: MovieDetailView(
-                                            movieId: viewModel
+                                        destination: MovieDetailView(movieId: viewModel
                                                 .topRatedMovies[index].id
                                         )
                                     ) {
                                         HomeScrollRectangleView(
                                             imageURL: viewModel
-                                                .topRatedMovies[index].backdropPath
+                                                .topRatedMovies[index].posterPath
                                         )
                                     }
                                 }
                             }
-
                         }
                         .padding(.leading,16)
                         
@@ -95,14 +93,13 @@ struct HomeView: View {
                                     id: \.self
                                 ) { index in
                                     NavigationLink(
-                                        destination: MovieDetailView(
-                                            movieId: viewModel
+                                        destination: MovieDetailView(movieId: viewModel
                                                 .nowPlayingMovies[index].id
                                         )
                                     ) {
                                         HomeScrollRectangleView(
                                             imageURL: viewModel
-                                                .nowPlayingMovies[index].backdropPath
+                                                .nowPlayingMovies[index].posterPath
                                         )
                                     }
                                 }
@@ -115,22 +112,20 @@ struct HomeView: View {
                             .font(.title)
                             .padding(.leading,16)
                         
-                        ScrollView(.horizontal,showsIndicators: false){
+                        ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 12) {
                                 ForEach(
                                     viewModel.tvSeries.indices,
                                     id: \.self
                                 ) { index in
-                                    NavigationLink(destination: SeriesDetailView(seriesId: viewModel.tvSeries[index].id ?? 0)
+                                    NavigationLink(destination: SeriesDetailView(seriesId: viewModel.tvSeries[index].id)
 ) {
                                         HomeScrollRectangleView(
-                                            imageURL: viewModel
-                                                .tvSeries[index].backdrop_path ?? "Untitled"
+                                            imageURL: viewModel.tvSeries[index].poster_path ?? ""
                                         )
                                     }
                                 }
                             }
-
                         }
                         .padding(.leading,16)
                     }
@@ -160,9 +155,7 @@ struct HomeView: View {
             await viewModel.fetchtrendIngNow()
             await viewModel.fetchUserRatedMovies()
             await viewModel.fetchTvSeries()
-            
         }
-        
     }
 }
 

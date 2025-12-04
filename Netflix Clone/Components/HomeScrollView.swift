@@ -13,14 +13,12 @@ struct HomeScrollView: View {
     
     var body: some View {
         ZStack {
-                    
                 WebImage(url: URL(string: AppConfig.imageBaseURL + imageURL))
                     .resizable()
                     .indicator(.activity)
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: 120, height: 120)
+                    .frame(width: 130, height: 130)
                     .clipShape(Circle())
-                        
             }
         
     }
